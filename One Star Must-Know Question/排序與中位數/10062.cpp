@@ -33,8 +33,7 @@ int main()
 		map<char, int> dictionary;
 		
 		for(char ch : str){
-			if(dictionary.find(ch) == dictionary.end()) dictionary[ch] = 1;
-			else dictionary[ch]+=1;
+			dictionary[ch]+=1;
 		}
 		
 		
