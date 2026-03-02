@@ -34,8 +34,7 @@ int main()
 		}
 		
 		// input and store in bucket with index: n%key
-		while(numbers){
-			numbers--;
+		while(numbers--){
 			cin >> n;
 			
 			// classfy negative number and non-nagative number
@@ -44,7 +43,7 @@ int main()
 		}
 		
 		
-		// negative bucket
+		// negative bucket: reverse index
 		for(int index = key-1; index >= 0; index--){
 			// Introsort ( buttleneck: O(nlogn) )
 			sort(negative_list[index].begin(), negative_list[index].end());

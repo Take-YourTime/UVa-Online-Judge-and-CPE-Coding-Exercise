@@ -10,8 +10,7 @@ int main()
 	
 	long long int a, b;
 	
-	while(cin >> a >> b){
-		cout << abs(b-a) << '\n';
-	}
+	while(cin >> a >> b) cout << abs(b-a) << '\n';
+		
 	return 0;
 }

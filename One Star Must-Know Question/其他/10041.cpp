@@ -1,8 +1,9 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
 #include <cmath>
 using namespace std;
+
+int list[505];
 
 int main()
 {
@@ -10,29 +11,23 @@ int main()
 	std::cin.tie(0);
 	cout.sync_with_stdio(false);
 	
+	int house;
 	int test_case;
 	cin >> test_case;
-	while(test_case){
-		test_case--;
+	while(test_case--){
 		
-		int house;
 		cin >> house;
-		vector<int> list;
-		
-		int n;
-		
 		for(int i = 0; i < house; i++){
-			cin >> n;
-			list.push_back(n);
+			cin >> list[i];
 		}
 		
-		sort(list.begin(), list.end());
+		sort(list, list + house);
 		
-		int mid = list[ (list.size()-1)/2 ];
+		int mid = list[ (house-1)/2 ];
 		int sum = 0;
 		
-		for(int pos : list){
-			sum += abs(mid - pos);
+		for(int i = 0; i < house; i++){
+			sum += abs(mid - list[i]);
 		}
 		
 		cout << sum << '\n';

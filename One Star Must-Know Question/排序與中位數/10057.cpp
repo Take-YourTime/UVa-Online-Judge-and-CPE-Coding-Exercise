@@ -11,7 +11,6 @@ int main()
 	cout.sync_with_stdio(false);
 	
 	int numbers;
-	
 	while(cin >> numbers)
 	{
 		for(int i = 0; i < numbers; i++){
@@ -22,35 +21,18 @@ int main()
 		
 		int middle = (numbers-1) / 2;
 		int key = arr[middle]; // middle point
-		int count = 1;
 		
-		// find identical number -- left
-		for(int left = middle - 1; left >= 0; left--){
-			if(arr[left] == key) count++;
-			else break;
-		}
+		// get left bound
+		int* left = lower_bound(arr, arr + middle, key);
 		
-		// find identical number -- right
-		if(numbers % 2 == 0){
-			int key2 = arr[middle+1];
-			count++;
-			
-			for(int right = middle + 2; right < numbers; right++){
-				if(arr[right] == key2) count++;
-				else break;
-			}
-		}
-		else{
-			for(int right = middle + 1; right < numbers; right++){
-				if(arr[right] == key) count++;
-				else break;
-			}
-		}
-			
+		// get right bound
+		int* right;
+		if(numbers % 2 == 0) right = upper_bound(arr + middle + 1, arr + numbers, arr[middle+1]);
+		else right = upper_bound(arr + middle, arr + numbers, arr[middle]);
 		
-		cout << key << " " << count << " ";
+		cout << key << " " << int(right - left) << " ";
 		if(numbers % 2 == 0) cout << arr[middle+1] - arr[middle] + 1 << '\n';
-		else	cout << 1 << '\n';
+		else cout << 1 << '\n';
 	}
 	return 0;
 }
