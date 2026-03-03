@@ -1,14 +1,15 @@
 #include <iostream>
 using namespace std;
 
-char mine[105][105];
+char mine[105][105]; // map, mine -> '*', else -> 'number'
 
-void addMineOnMap(int& x, int& y, int& col, int& row){
+// +1 to the surrounding of mine on the map
+void addMineOnMap(int& x, int& y, int& row, int& col){
 	for(int i = x-1; i <= x+1; i++){
-		if(i < 0 || i >= col) continue;
+		if(i < 0 || i >= row) continue;
 		
 		for(int j = y-1; j <= y+1; j++){
-			if(j < 0 || j >= row) continue;
+			if(j < 0 || j >= col) continue;
 			if(mine[i][j] != '*') mine[i][j]++;
 		}
 	}
@@ -21,38 +22,43 @@ int main()
 	cout.sync_with_stdio(false);
 	
 	int row, col;
-	int index = 1;
-	bool isFirst = true;
+	int index = 1; // output index
+	bool isFirst = true; // Flag: is first round of while loop or not
+	
 	while(cin >> row >> col && (row != 0 && col != 0))
 	{
-		if(isFirst) isFirst = false;
+		if(isFirst) isFirst = false; // output format
 		else {
 			cout << '\n';
 			index++;
 		}
 		
+		// initialize map
 		for(int i = 0; i < row; i++){
 			for(int j = 0; j < col; j++){
 				mine[i][j] = '0';
 			}
 		}
 		
+		// input map
 		char ch;
 		for(int i = 0; i < row; i++){
 			for(int j = 0; j < col; j++){
 				cin >> ch;
 				if(ch == '*'){
+					// if it is mine
+					// then +1 to the surrounding cell on map
 					mine[i][j] = '*';
-					addMineOnMap(i, j, col, row);
+					addMineOnMap(i, j, row, col);
 				}
 			}
 		}
 		
-		
+		// output
 		cout << "Field #" << index << ":\n";
 		for(int i = 0; i < row; i++){
 			for(int j = 0; j < col; j++){
-				cout << mine[i][j];		
+				cout << mine[i][j];
 			}
 			cout << '\n';
 		}
