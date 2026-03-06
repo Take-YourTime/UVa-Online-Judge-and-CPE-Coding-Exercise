@@ -1,4 +1,4 @@
-# CPE
+# CPE Coding Exercise
 Coding exercise for CPE (Collegiate Programming Examination)  
 The questions are form UVA online judge.
 
