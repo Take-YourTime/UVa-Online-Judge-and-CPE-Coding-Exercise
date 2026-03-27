@@ -2,14 +2,14 @@
 #include <map>
 using namespace std;
 
-bool isHappy[1000000000] = {false}; // the number is happy or not
-// we can also record the unhappy number here
-
-map<int, bool> dictionary;
+int isHappy[1000] = {0};	// record the number is happy or not
+							// 0: not meet  1: is happy  -1: is unhappy
 
 
-// get digit power sum of integer n
-int getDigitPower(int n)
+
+
+// get digit square sum of integer n
+int getDigitSquare(int n)
 {
 	int sum = 0;
 	int digit;
@@ -31,7 +31,10 @@ int main()
 	
 	int n, nRecord;
 	int testCase;
+	map<int, bool> dictionary; // the number has meet in a sequence of calculate digit square
 	
+	isHappy[0] = -1;
+	isHappy[1] = 1;
 	
 	cin >> testCase;
 	for(int index = 1; index <= testCase; index++)
@@ -43,16 +46,19 @@ int main()
 		nRecord = n; // store value of n
 		
 		// detect n is happy number or not
-		n = getDigitPower(n);
+		n = getDigitSquare(n);
 		while(dictionary.find(n) == dictionary.end() && n != 1)
 		{
-			if(isHappy[n]){
+			if(isHappy[n] == 1){
 				n = 1;
+				break;
+			}
+			else if(isHappy[n] == -1){
 				break;
 			}
 			
 			dictionary[n] = true;
-			n = getDigitPower(n);
+			n = getDigitSquare(n);
 		}
 		
 		
@@ -63,11 +69,17 @@ int main()
 			// record the calculation process numbers,
 			// all of them are happy number
 			for(auto it : dictionary){
-				isHappy[it.first] = true;
+				isHappy[it.first] = 1;
 			}
 		}
 		else{
 			cout << " is an Unhappy number.\n";
+			
+			// record the calculation process numbers,
+			// all of them are unhappy number
+			for(auto it : dictionary){
+				isHappy[it.first] = -1;
+			}
 		}
 		
 	}
